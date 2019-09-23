@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --config ./build/webpack.dev.js",
-    "build": "webpack --config ./build/webpack.prod.js"
+    "build": "webpack -p --config ./build/webpack.prod.js"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",

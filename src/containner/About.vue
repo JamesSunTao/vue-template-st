@@ -1,0 +1,24 @@
+<template>
+    <div> 
+        this is about page
+    </div>
+</template>
+
+<script>
+export default {
+    name:'About',
+    data () {
+        return {
+
+        };
+    },
+
+    methods: {
+
+    }
+}
+
+</script>
+<style lang='scss' scoped>
+
+</style>

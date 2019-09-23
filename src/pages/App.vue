@@ -1,19 +1,20 @@
 <template>
     <div class="main-warp"> 
-         app.vue 文件
-         {{num}}
+        <ul>
+            <li><router-link to="/">home</router-link></li>
+            <li><router-link to="/about">about</router-link></li>
+        </ul>
+         <router-view></router-view>
     </div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
 export default {
+    name:'App',
     data () {
         return {
         };
-    },
-    computed:{
-        ...mapState(['num'])
     },
     methods: {
     }

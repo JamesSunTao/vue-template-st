@@ -1,10 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');// 将 css 单独打包成文件
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
+const devMode = process.argv.indexOf('-p') === -1;
 const entryDir = path.resolve(__dirname,'../src/pages/');
 const outputDir = path.resolve(__dirname, '../dist');
 
@@ -14,8 +14,8 @@ module.exports = {
     },
     output: {
         path: outputDir,
-        filename: '[name].bundle.js', // 代码打包后的文件名
-        chunkFilename: '[name].js' // 代码拆分后的文件名
+        filename: devMode?'static/js/[name]-[hash:6].js':'static/js/[name]-[chunkhash:6].js', // 代码打包后的文件名
+        chunkFilename: devMode?'static/js/[name]-[hash:6].js':'static/js/[name]-[chunkhash:6].js' // 代码拆分后的文件名
     },
     resolve: {
       // 后缀自动补全
@@ -30,7 +30,6 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin(),
-        new CleanWebpackPlugin(), // 默认情况下，此插件将删除 webpack output.path目录中的所有文件，以及每次成功重建后所有未使用的 webpack 资产。
         new HtmlWebpackPlugin({
             // 打包输出HTML
             title: 'webpack 项目模板',
@@ -44,8 +43,8 @@ module.exports = {
             }
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].css',
-            chunkFilename: '[id].css'
+          filename: devMode ? 'css/[name].css' : 'static/css/[name]-[chunkhash:6].css',
+          chunkFilename: devMode ? 'css/[id].css' : 'static/css/[id]-[chunkhash:6].css',
         }),
         new webpack.ProvidePlugin({                
             '$': "jquery",               
@@ -70,7 +69,7 @@ module.exports = {
             test: /\.(sa|sc|c)ss$/,
             use: [               
                 {
-                   loader: MiniCssExtractPlugin.loader
+                   loader: devMode?'style-loader':MiniCssExtractPlugin.loader,
                 },   
                 {
                     loader: 'css-loader',
@@ -88,7 +87,7 @@ module.exports = {
               {
                 loader: 'url-loader',
                 options: {
-                  name: '[name]-[hash:5].[ext]',
+                  name: '[name][hash:5].[ext]',
                   outputPath: 'static/images', //输出到 images 文件夹
                   limit: 20000 //把小于 20kb 的文件转成 Base64 的格式
                 }
@@ -117,6 +116,5 @@ module.exports = {
             }
           }
         ]
-      }
-      
+      }      
 };
