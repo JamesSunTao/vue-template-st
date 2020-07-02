@@ -19,5 +19,9 @@ export default {
 
 </script>
 <style lang='scss' scoped>
-
+       div{
+           height:500px;
+           width:100%;
+           background:red;
+       }
 </style>
