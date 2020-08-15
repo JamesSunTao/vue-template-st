@@ -17,20 +17,6 @@ export default new Router({
             path:'/home',
             name:'home',
             component:Home,
-            children: [
-                {
-                  path: '/home/home1',
-                  component: resolve => require(['@/components/home1'], resolve),
-                },
-                {
-                  path: '/home/home2',
-                  component: resolve => require(['@/components/home2'], resolve),
-                },
-                {
-                  path: '/home/home3',
-                  component: resolve => require(['@/components/home3'], resolve),
-                },
-              ]
         },
         {
             path:'*',
