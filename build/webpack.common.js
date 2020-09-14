@@ -1,22 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');// 将 css 单独打包成文件
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const devMode = process.argv.indexOf('-p') === -1;
-const entryDir = path.resolve(__dirname,'../src/pages/');
-const outputDir = path.resolve(__dirname, '../dist');
+
 
 module.exports = {
-    entry: {
-       main:path.resolve(entryDir,'index.js'),
-    },
-    output: {
-        path: outputDir,
-        filename: devMode?'static/js/[name]-[hash:6].js':'static/js/[name]-[chunkhash:6].js', // 代码打包后的文件名
-        chunkFilename: devMode?'static/js/[name]-[hash:6].js':'static/js/[name]-[chunkhash:6].js' // 代码拆分后的文件名
-    },
+   
     resolve: {
       // 后缀自动补全
       extensions: ['.js', '.vue'],
@@ -30,18 +21,6 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin(),
-        new HtmlWebpackPlugin({
-            // 打包输出HTML
-            title: 'webpack 项目模板',
-            filename: 'index.html', // 生成后的文件名
-            template: path.resolve(entryDir,'index.html'), // 根据此模版生成 HTML 文件
-            minify: {
-              // 压缩 HTML 文件
-              removeComments: true, // 移除 HTML 中的注释
-              collapseWhitespace: true, // 删除空白符与换行符
-              minifyCSS: true // 压缩内联 css
-            }
-        }),
         new MiniCssExtractPlugin({
           filename: devMode ? 'css/[name].css' : 'static/css/[name]-[chunkhash:6].css',
           chunkFilename: devMode ? 'css/[id].css' : 'static/css/[id]-[chunkhash:6].css',
@@ -54,13 +33,7 @@ module.exports = {
     ],
     module: {
         rules: [
-          {
-            test: /\.js$/, // 使用正则来匹配 js 文件
-            exclude: /node_modules/, // 排除依赖包文件夹
-            use: {
-              loader: 'babel-loader' // 使用 babel-loader
-            }
-          },
+         
           {
             test: /\.vue$/,
             loader: 'vue-loader'

@@ -1,6 +1,6 @@
 <template>
     <div> 
-        home
+        this is about page
     </div>
 </template>
 
@@ -20,5 +20,9 @@ export default {
 
 </script>
 <style lang='scss' scoped>
-
+ div{
+    height:500px;
+    width:100%;
+    background: #353535;
+}
 </style>
